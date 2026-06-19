@@ -1,0 +1,60 @@
+
+<section class="page-section about-bg">
+  <div class="wrap">
+    <p class="sec-label">Qui suis-je</p>
+    <h2 class="sec-title">À propos</h2>
+
+    @if (loading) {
+      <div class="sk-about">
+        <div class="sk sk-text"></div>
+        <div class="sk sk-timeline"></div>
+      </div>
+    } @else if (profile) {
+      <div class="about-grid">
+
+        <div class="about-left">
+          <p class="bio">{{ profile.bio }}</p>
+
+          <div class="langs">
+            <p class="sub-title">Langues</p>
+            <div class="lang-item"><span>🇫🇷 Français</span><span class="lang-badge">Professionnel</span></div>
+            <div class="lang-item"><span>🇬🇧 Anglais</span><span class="lang-badge">Intermédiaire</span></div>
+          </div>
+
+          <div class="soft-grid">
+            @for (s of profile.soft_skills; track s) {
+              <div class="soft-item">{{ s }}</div>
+            }
+          </div>
+
+          <div class="socials">
+            @if (profile.github_url) {
+              <a [href]="profile.github_url" target="_blank" class="social-link">🐙 GitHub</a>
+            }
+            @if (profile.linkedin_url) {
+              <a [href]="profile.linkedin_url" target="_blank" class="social-link">💼 LinkedIn</a>
+            }
+            @if (profile.fiverr_url) {
+              <a [href]="profile.fiverr_url" target="_blank" class="social-link">🟢 Fiverr</a>
+            }
+          </div>
+        </div>
+
+        <div class="timeline">
+          <p class="sub-title">Parcours académique</p>
+          @for (e of profile.education; track e.degree) {
+            <div class="tl-item">
+              <div class="tl-dot"></div>
+              <div>
+                <p class="tl-year">{{ e.year }}</p>
+                <p class="tl-deg">{{ e.degree }}</p>
+                <p class="tl-school">{{ e.school }}</p>
+              </div>
+            </div>
+          }
+        </div>
+
+      </div>
+    }
+  </div>
+</section>

@@ -1,0 +1,75 @@
+<section class="page-section">
+  <div class="wrap">
+    <p class="sec-label">Travaillons ensemble</p>
+    <h2 class="sec-title">Contact</h2>
+
+    <div class="contact-grid">
+      <div class="contact-info">
+        <p class="intro">Disponible pour des missions freelance, des stages ou des opportunités en développement web. Je réponds sous 24h.</p>
+
+        @if (profile) {
+          <div class="ci"><div class="ci-icon">✉️</div><span>{{ profile.email }}</span></div>
+          <div class="ci"><div class="ci-icon">📞</div><span>{{ profile.phone }}</span></div>
+          <div class="ci"><div class="ci-icon">📍</div><span>{{ profile.location }}</span></div>
+          @if (profile.fiverr_url) {
+            <div class="ci">
+              <div class="ci-icon">🟢</div>
+              <a [href]="profile.fiverr_url" target="_blank">Fiverr</a>
+            </div>
+          }
+        }
+      </div>
+
+      <!-- ── Soit on montre le succès, soit le formulaire ── -->
+      @if (success) {
+        <div class="success-card">
+          <div class="success-icon">✅</div>
+          <h3>Message envoyé avec succès !</h3>
+          <p>Merci {{ lastSentName }}, votre demande a bien été reçue.<br/>
+             Mame Aby vous répondra dans les brefs délais.</p>
+          <button class="btn btn-outline" (click)="resetForm()">
+            ✉️ Envoyer un autre message
+          </button>
+        </div>
+      } @else {
+        <form class="contact-form" (ngSubmit)="onSubmit()">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nom</label>
+              <input type="text" [(ngModel)]="form.name" name="name" placeholder="Votre nom" required/>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" [(ngModel)]="form.email" name="email" placeholder="votre@email.com" required/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Sujet</label>
+            <select [(ngModel)]="form.subject" name="subject">
+              <option>Mission freelance</option>
+              <option>Stage / Emploi</option>
+              <option>Collaboration</option>
+              <option>Autre</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea [(ngModel)]="form.message" name="message" rows="5" placeholder="Décrivez votre projet..." required></textarea>
+          </div>
+
+          @if (error) {
+            <div class="alert alert-error">❌ {{ error }}</div>
+          }
+
+          <button type="submit" class="btn btn-primary" [disabled]="sending">
+            @if (sending) {
+              <span class="spinner"></span> Envoi en cours...
+            } @else {
+              Envoyer →
+            }
+          </button>
+        </form>
+      }
+    </div>
+  </div>
+</section>

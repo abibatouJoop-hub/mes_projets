@@ -1,0 +1,8 @@
+
+.footer { background: #1a1a1a; color: #ccc; text-align: center; padding: 2.5rem 2rem; }
+.footer-inner { max-width: 960px; margin: 0 auto; font-size: 13px; }
+.footer strong { color: #fff; }
+.footer-links { display: flex; gap: 1.5rem; justify-content: center; margin: .75rem 0; flex-wrap: wrap; }
+.footer-links a { color: #888; transition: color .2s; font-size: 13px; }
+.footer-links a:hover { color: #fff; }
+.copy { color: #666; margin-top: .5rem; font-size: 12px; }

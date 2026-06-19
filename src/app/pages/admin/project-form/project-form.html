@@ -1,0 +1,104 @@
+
+<section class="admin-page">
+  <div class="form-wrap">
+
+    <a routerLink="/admin/dashboard" class="back-link">← Retour au dashboard</a>
+
+    <h1>{{ isEdit ? 'Modifier le projet' : 'Nouveau projet' }}</h1>
+
+    <form (ngSubmit)="onSubmit()" class="proj-form">
+
+      <div class="form-group">
+        <label>Titre du projet *</label>
+        <input type="text" [(ngModel)]="form.title" name="title" placeholder="Ex : GestiCom" required/>
+      </div>
+
+      <div class="form-group">
+        <label>Description *</label>
+        <textarea [(ngModel)]="form.description" name="description" rows="4" placeholder="Décrivez le projet, son objectif, son fonctionnement..." required></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Emoji</label>
+          <input type="text" [(ngModel)]="form.emoji" name="emoji" placeholder="🚀" maxlength="4"/>
+        </div>
+        <div class="form-group">
+          <label>Couleur de fond</label>
+          <div class="color-row">
+            <input type="color" [(ngModel)]="form.bg_color" name="bg_color"/>
+            <input type="text" [(ngModel)]="form.bg_color" name="bg_color_text" placeholder="#f0fdf4"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Technologies (séparées par des virgules)</label>
+        <input type="text" [(ngModel)]="tagsInput" name="tags" placeholder="Laravel, Angular, PostgreSQL"/>
+        @if (tagsInput) {
+            <div class="tags-preview">
+                @for (t of tagsPreview; track t) {
+                <span class="tag">{{ t }}</span>
+                }
+            </div>
+        }
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Lien GitHub</label>
+          <input type="url" [(ngModel)]="form.github_url" name="github_url" placeholder="https://github.com/..."/>
+        </div>
+        <div class="form-group">
+          <label>Lien du site en ligne</label>
+          <input type="url" [(ngModel)]="form.live_url" name="live_url" placeholder="https://..."/>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Type de projet</label>
+          <select [(ngModel)]="form.type" name="type">
+            <option value="Solo">Solo</option>
+            <option value="Collaboratif">Collaboratif</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Ordre d'affichage</label>
+          <input type="number" [(ngModel)]="form.order" name="order" min="0"/>
+        </div>
+      </div>
+
+      <div class="form-group checkbox-group">
+        <label class="checkbox-label">
+          <input type="checkbox" [(ngModel)]="form.is_visible" name="is_visible"/>
+          <span>Visible sur le portfolio public</span>
+        </label>
+      </div>
+
+      <!-- Aperçu live -->
+      <div class="preview-section">
+        <p class="preview-label">Aperçu</p>
+        <div class="preview-card">
+          <div class="preview-thumb" [style.background]="form.bg_color">{{ form.emoji }}</div>
+          <div class="preview-body">
+            <h4>{{ form.title || 'Titre du projet' }}</h4>
+            <p>{{ form.description || 'Description du projet...' }}</p>
+          </div>
+        </div>
+      </div>
+
+      @if (error) {
+        <div class="alert alert-error">❌ {{ error }}</div>
+      }
+
+      <div class="form-footer">
+        <a routerLink="/admin/dashboard" class="btn btn-outline">Annuler</a>
+        <button type="submit" class="btn btn-primary" [disabled]="loading">
+          {{ loading ? 'Enregistrement...' : (isEdit ? 'Enregistrer les modifications' : 'Créer le projet') }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+</section>

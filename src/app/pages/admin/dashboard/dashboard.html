@@ -1,0 +1,81 @@
+
+<section class="admin-page">
+  <div class="admin-wrap">
+
+    <!-- Header -->
+    <div class="admin-header">
+      <div>
+        <p class="admin-eyebrow">Bonjour {{ user?.name?.split(' ')[0] }} 👋</p>
+        <h1>Dashboard</h1>
+      </div>
+      <div class="admin-actions">
+        <a routerLink="/admin/profile" class="btn btn-outline">⚙️ Mon profil</a>
+        <a routerLink="/" target="_blank" class="btn btn-outline">👁️ Voir le site</a>
+        <button (click)="logout()" class="btn btn-danger">Déconnexion</button>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <span class="stat-num">{{ projects.length }}</span>
+        <span class="stat-lbl">Projets total</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">{{ visibleCount }}</span>
+        <span class="stat-lbl">Visibles</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">{{ hiddenCount }}</span>
+        <span class="stat-lbl">Masqués</span>
+      </div>
+    </div>
+
+    <!-- Projects table -->
+    <div class="table-header">
+      <h2>Mes projets</h2>
+      <a routerLink="/admin/projects/new" class="btn btn-primary">+ Nouveau projet</a>
+    </div>
+
+    @if (loading) {
+      <div class="sk-table">
+        @for (i of [1,2,3]; track i) {
+          <div class="sk-row"></div>
+        }
+      </div>
+    } @else if (projects.length === 0) {
+      <div class="empty-state">
+        <p>Aucun projet pour le moment.</p>
+        <a routerLink="/admin/projects/new" class="btn btn-primary">Créer mon premier projet</a>
+      </div>
+    } @else {
+      <div class="proj-table">
+        @for (p of projects; track p.id) {
+          <div class="proj-row">
+            <div class="proj-emoji" [style.background]="p.bg_color">{{ p.emoji }}</div>
+
+            <div class="proj-info">
+              <div class="proj-title-row">
+                <h3>{{ p.title }}</h3>
+                @if (!p.is_visible) {
+                  <span class="badge-hidden">Masqué</span>
+                }
+              </div>
+              <div class="proj-tags">
+                @for (tag of p.tags; track tag) {
+                  <span class="tag">{{ tag }}</span>
+                }
+              </div>
+            </div>
+
+            <div class="proj-row-actions">
+              <a [routerLink]="['/admin/projects/edit', p.id]" class="icon-btn" title="Modifier">✏️</a>
+              <button (click)="delete(p.id)" class="icon-btn danger" title="Supprimer">🗑️</button>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+  </div>
+</section>

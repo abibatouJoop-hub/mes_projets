@@ -1,0 +1,38 @@
+
+<section class="page-section">
+  <div class="wrap">
+    <p class="sec-label">Ce que je maîtrise</p>
+    <h2 class="sec-title">Compétences</h2>
+    <p class="sec-sub">Un stack complet couvrant le front-end, le back-end, les bases de données et les outils.</p>
+
+    @if (loading) {
+      <div class="sk-grid">
+        @for (i of [1,2,3,4]; track i) {
+          <div class="sk sk-card"></div>
+        }
+      </div>
+    } @else {
+      <div class="skills-grid">
+        @for (group of profile?.skills ?? []; track group.category) {
+          <div class="sk-card">
+            <h4>{{ group.category }}</h4>
+            <ul>
+              @for (item of group.items; track item) {
+                <li>{{ item }}</li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+
+      <div class="soft-section">
+        <h3>Compétences personnelles</h3>
+        <div class="soft-grid">
+          @for (s of profile?.soft_skills ?? []; track s) {
+            <div class="soft-item">{{ s }}</div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</section>

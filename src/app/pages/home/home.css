@@ -1,0 +1,54 @@
+
+.hero { padding-top: 130px; min-height: 100vh; display: flex; align-items: center; }
+.hero-wrap { display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: center; }
+.hero-left { display: flex; flex-direction: column; gap: 1.25rem; }
+h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 800; letter-spacing: -.05em; line-height: 1.08; }
+.accent { color: var(--accent); }
+.hero-sub { font-size: 17px; color: var(--text2); max-width: 480px; line-height: 1.7; }
+.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero-stack { display: flex; flex-wrap: wrap; gap: 8px; }
+.hero-stats { display: flex; gap: 2rem; }
+.stat { display: flex; flex-direction: column; }
+.num { font-size: 1.5rem; font-weight: 800; color: var(--accent); letter-spacing: -.04em; }
+.lbl { font-size: 12px; color: var(--text3); }
+.hero-avatar { width: 200px; height: 200px; border-radius: 24px; background: linear-gradient(135deg,#dbeafe,#bfdbfe); display: flex; align-items: center; justify-content: center; font-size: 56px; border: 1.5px solid #bfdbfe; flex-shrink: 0; }
+.skeleton-hero { display: flex; flex-direction: column; gap: 16px; }
+.sk { background: var(--border); border-radius: 8px; animation: shimmer 1.5s infinite; }
+.sk-badge { width: 200px; height: 28px; border-radius: 20px; }
+.sk-h1 { width: 400px; height: 100px; }
+.sk-sub { width: 350px; height: 60px; }
+@keyframes shimmer { 0%,100%{opacity:1} 50%{opacity:.4} }
+@media(max-width:700px) { .hero-wrap { grid-template-columns: 1fr; } .hero-avatar { display: none; } }
+
+/* ── Remplace .hero-avatar dans home.css par ceci ── */
+
+.hero-avatar {
+  width: 420px;            /* ← était 200px, augmente selon ton goût */
+  height: 380px;            /* ← garde la même valeur que width pour un carré */
+  border-radius: 24px;
+  background: linear-gradient(135deg,#dbeafe,#bfdbfe);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 56px;
+  border: 1.5px solid #bfdbfe;
+  flex-shrink: 0;
+}
+
+.hero-avatar.has-photo {
+  padding: 0;
+  overflow: hidden;
+}
+
+.hero-avatar.has-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 22px;
+}
+
+/* ── Sur mobile, on garde une taille raisonnable ── */
+@media(max-width:700px) {
+  .hero-wrap { grid-template-columns: 1fr; }
+  .hero-avatar { display: none; }
+}

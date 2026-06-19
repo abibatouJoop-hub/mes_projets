@@ -1,0 +1,30 @@
+!-- ════════════════════════════════════════ -->
+<!-- shared/navbar/navbar.html              -->
+<!-- ════════════════════════════════════════ -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a class="logo" routerLink="/" (click)="closeMenu()">
+      Mame Aby <span>Diop</span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a routerLink="/"         routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Accueil</a></li>
+      <li><a routerLink="/skills"   routerLinkActive="active">Compétences</a></li>
+      <li><a routerLink="/projects" routerLinkActive="active">Projets</a></li>
+      <li><a routerLink="/about"    routerLinkActive="active">À propos</a></li>
+      <li><a routerLink="/contact"  routerLinkActive="active" class="nav-cta">Contact</a></li>
+    </ul>
+
+    <button class="hamburger" (click)="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="mobile-menu" [class.open]="menuOpen">
+    <a routerLink="/"         routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="closeMenu()">Accueil</a>
+    <a routerLink="/skills"   routerLinkActive="active" (click)="closeMenu()">Compétences</a>
+    <a routerLink="/projects" routerLinkActive="active" (click)="closeMenu()">Projets</a>
+    <a routerLink="/about"    routerLinkActive="active" (click)="closeMenu()">À propos</a>
+    <a routerLink="/contact"  routerLinkActive="active" (click)="closeMenu()">Contact</a>
+  </div>
+</nav>

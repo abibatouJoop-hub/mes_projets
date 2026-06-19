@@ -1,0 +1,56 @@
+
+<section class="page-section">
+  <div class="wrap">
+    <p class="sec-label">Ce que j'ai construit</p>
+    <h2 class="sec-title">Projets</h2>
+    <p class="sec-sub">Applications web réalisées en formation et en freelance.</p>
+
+    @if (loading) {
+      <div class="proj-grid">
+        @for (i of [1,2,3]; track i) {
+          <div class="sk-card"></div>
+        }
+      </div>
+    } @else if (projects.length === 0) {
+      <p class="empty">Aucun projet pour le moment.</p>
+    } @else {
+      <div class="proj-grid">
+        @for (p of projects; track p.id) {
+          <div class="proj-card">
+            <div class="proj-thumb" [style.background]="p.bg_color">
+              {{ p.emoji }}
+            </div>
+            <div class="proj-body">
+              <div class="proj-header">
+                <h3>{{ p.title }}</h3>
+                <span class="proj-type" [class.collab]="p.type === 'Collaboratif'">
+                  {{ p.type }}
+                </span>
+              </div>
+              <p>{{ p.description }}</p>
+              <div class="proj-tags">
+                @for (tag of p.tags; track tag) {
+                  <span class="tag">{{ tag }}</span>
+                }
+              </div>
+            </div>
+            <div class="proj-footer">
+              @if (p.github_url) {
+                <a [href]="p.github_url" target="_blank" class="proj-link">
+                  🔗 GitHub
+                </a>
+              } @else {
+                <span class="proj-link disabled">🔗 Bientôt disponible</span>
+              }
+              @if (p.live_url) {
+                <a [href]="p.live_url" target="_blank" class="proj-link">
+                  🌐 Voir le site
+                </a>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</section>

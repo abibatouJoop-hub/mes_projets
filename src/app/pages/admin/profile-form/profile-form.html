@@ -1,0 +1,205 @@
+
+<!-- ════════════════════════════════════════ -->
+<!-- pages/admin/profile-form/profile-form.html -->
+<!-- ════════════════════════════════════════ -->
+<section class="admin-page">
+  <div class="form-wrap">
+
+    <a routerLink="/admin/dashboard" class="back-link">← Retour au dashboard</a>
+
+    <div class="page-head">
+      <div>
+        <p class="eyebrow">Paramètres</p>
+        <h1>Mon profil</h1>
+      </div>
+      @if (profile) {
+        <div class="avatar-preview">{{ initials }}</div>
+      }
+    </div>
+
+    @if (loading) {
+      <div class="sk-form">
+        <div class="sk-block" style="height:120px"></div>
+        <div class="sk-block" style="height:200px"></div>
+      </div>
+    } @else if (profile) {
+      <form (ngSubmit)="onSubmit()" class="profile-form">
+
+        <!-- ── CARD: Identité ── -->
+        <div class="card">
+          <div class="card-head">
+            <span class="card-icon">👤</span>
+            <div>
+              <h3>Identité</h3>
+              <p>Comment vous apparaissez sur le site</p>
+            </div>
+          </div>
+          
+<!-- ════════════════════════════════════════ -->
+<!-- À ajouter dans profile-form.html        -->
+<!-- Juste APRÈS <div class="card-head">...  -->
+<!-- de la card "Identité", AVANT card-body  -->
+<!-- ════════════════════════════════════════ -->
+
+<div class="card">
+  <div class="card-head">
+    <span class="card-icon">📸</span>
+    <div>
+      <h3>Photo de profil</h3>
+      <p>Visible sur la page d'accueil de ton portfolio</p>
+    </div>
+  </div>
+    <div class="card-body">
+        <div class="photo-uploader">
+
+        <!-- Aperçu -->
+        <div class="photo-preview">
+            @if (photoPreview || profile.photo_url) {
+            <img [src]="photoPreview || profile.photo_url" alt="Photo de profil"/>
+            } @else {
+            <span class="photo-placeholder">{{ initials }}</span>
+            }
+        </div>
+
+        <!-- Actions -->
+        <div class="photo-actions">
+            <label class="btn btn-outline upload-btn">
+            📤 {{ profile.photo_url ? 'Changer la photo' : 'Ajouter une photo' }}
+            <input type="file" accept="image/png, image/jpeg, image/webp" (change)="onPhotoSelected($event)" hidden/>
+            </label>
+
+            @if (selectedFile) {
+            <button type="button" class="btn btn-primary" (click)="uploadPhoto()" [disabled]="uploadingPhoto">
+                {{ uploadingPhoto ? 'Envoi...' : '✓ Confirmer' }}
+            </button>
+            <button type="button" class="btn btn-text" (click)="cancelPhoto()">Annuler</button>
+            }
+
+            <p class="photo-hint">JPG, PNG ou WEBP · 4 Mo max</p>
+        </div>
+
+        </div>
+
+        @if (photoError) {
+        <div class="alert alert-error">❌ {{ photoError }}</div>
+        }
+        @if (photoSuccess) {
+        <div class="alert alert-success">✅ Photo mise à jour !</div>
+        }
+    </div>
+    </div>
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Nom complet</label>
+                <input type="text" [(ngModel)]="profile.name" name="name" required/>
+              </div>
+              <div class="form-group">
+                <label>Titre / Tagline</label>
+                <input type="text" [(ngModel)]="profile.tagline" name="tagline" required/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Bio / Présentation</label>
+              <textarea [(ngModel)]="profile.bio" name="bio" rows="4" required></textarea>
+              <span class="hint">{{ profile.bio.length }} caractères</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── CARD: Coordonnées ── -->
+        <div class="card">
+          <div class="card-head">
+            <span class="card-icon">📍</span>
+            <div>
+              <h3>Coordonnées</h3>
+              <p>Comment les visiteurs peuvent vous joindre</p>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group">
+                <label>✉️ Email</label>
+                <input type="email" [(ngModel)]="profile.email" name="email" required/>
+              </div>
+              <div class="form-group">
+                <label>📞 Téléphone</label>
+                <input type="text" [(ngModel)]="profile.phone" name="phone"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>📍 Localisation</label>
+              <input type="text" [(ngModel)]="profile.location" name="location"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── CARD: Liens ── -->
+        <div class="card">
+          <div class="card-head">
+            <span class="card-icon">🔗</span>
+            <div>
+              <h3>Liens & réseaux</h3>
+              <p>Affichés en boutons sur la page À propos</p>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="link-input">
+              <span class="link-icon">🐙</span>
+              <input type="url" [(ngModel)]="profile.github_url" name="github_url" placeholder="https://github.com/votre-profil"/>
+            </div>
+            <div class="link-input">
+              <span class="link-icon">💼</span>
+              <input type="url" [(ngModel)]="profile.linkedin_url" name="linkedin_url" placeholder="https://linkedin.com/in/votre-profil"/>
+            </div>
+            <div class="link-input">
+              <span class="link-icon">🟢</span>
+              <input type="url" [(ngModel)]="profile.fiverr_url" name="fiverr_url" placeholder="https://fiverr.com/votre-profil"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── CARD: Compétences personnelles ── -->
+        <div class="card">
+          <div class="card-head">
+            <span class="card-icon">✨</span>
+            <div>
+              <h3>Compétences personnelles</h3>
+              <p>Une compétence par ligne</p>
+            </div>
+          </div>
+          <div class="card-body">
+            <textarea
+              [ngModel]="profile.soft_skills.join('\n')"
+              (ngModelChange)="updateSoftSkills($event)"
+              name="soft_skills" rows="4"
+              placeholder="Esprit d'équipe&#10;Apprentissage rapide&#10;Organisation & rigueur"></textarea>
+
+            @if (profile.soft_skills.length) {
+              <div class="chips-preview">
+                @for (s of profile.soft_skills; track s) {
+                  <span class="chip">{{ s }}</span>
+                }
+              </div>
+            }
+          </div>
+        </div>
+
+        @if (success) {
+          <div class="alert alert-success">✅ Profil mis à jour avec succès !</div>
+        }
+        @if (error) {
+          <div class="alert alert-error">❌ {{ error }}</div>
+        }
+
+        <div class="form-footer">
+          <a routerLink="/admin/dashboard" class="btn btn-outline">Annuler</a>
+          <button type="submit" class="btn btn-primary" [disabled]="saving">
+            {{ saving ? 'Enregistrement...' : '💾 Enregistrer les modifications' }}
+          </button>
+        </div>
+
+      </form>
+    }
+  </div>
+</section>

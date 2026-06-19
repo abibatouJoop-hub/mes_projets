@@ -1,0 +1,46 @@
+
+<section class="login-page">
+  <div class="login-card">
+    <div class="login-header">
+      <div class="login-icon">🔒</div>
+      <h1>Connexion Admin</h1>
+      <p>Accès réservé à Mame Aby Diop</p>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" class="login-form">
+      <div class="form-group">
+        <label>Email</label>
+        <input
+          type="email"
+          [(ngModel)]="email"
+          name="email"
+          placeholder="abydiop0324@gmail.com"
+          required
+          autocomplete="username"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Mot de passe</label>
+        <input
+          type="password"
+          [(ngModel)]="password"
+          name="password"
+          placeholder="••••••••"
+          required
+          autocomplete="current-password"
+        />
+      </div>
+
+      @if (error) {
+        <div class="alert alert-error">❌ {{ error }}</div>
+      }
+
+      <button type="submit" class="btn btn-primary" [disabled]="loading">
+        {{ loading ? 'Connexion...' : 'Se connecter →' }}
+      </button>
+    </form>
+
+    <a routerLink="/" class="back-link">← Retour au site</a>
+  </div>
+</section>

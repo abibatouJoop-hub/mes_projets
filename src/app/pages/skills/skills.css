@@ -1,0 +1,15 @@
+
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 16px; }
+.sk-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; transition: transform .2s, box-shadow .2s; }
+.sk-card:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(37,99,235,.08); }
+.sk-card h4 { font-size: 14px; font-weight: 700; margin-bottom: .75rem; color: var(--accent); }
+.sk-card ul { list-style: none; }
+.sk-card li { font-size: 13px; color: var(--text2); padding: 4px 0; display: flex; align-items: center; gap: 8px; }
+.sk-card li::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--accent); flex-shrink:0; }
+.soft-section { margin-top: 3rem; }
+.soft-section h3 { font-size: 16px; font-weight: 700; margin-bottom: 1.25rem; }
+.soft-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 10px; }
+.soft-item { background: var(--bg); border: 1px solid var(--border); border-radius: 9px; padding: 12px 16px; font-size: 13px; color: var(--text2); text-align: center; }
+.sk-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap:16px; }
+.sk { background: var(--border); border-radius: var(--radius); height: 180px; animation: shimmer 1.5s infinite; }
+@keyframes shimmer { 0%,100%{opacity:1} 50%{opacity:.4} }

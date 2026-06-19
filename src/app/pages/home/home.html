@@ -1,0 +1,65 @@
+
+<section class="hero">
+  <div class="wrap hero-wrap">
+
+    @if (loading) {
+      <div class="skeleton-hero">
+        <div class="sk sk-badge"></div>
+        <div class="sk sk-h1"></div>
+        <div class="sk sk-sub"></div>
+      </div>
+    } @else {
+      <div class="hero-left">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          Disponible pour missions freelance
+        </div>
+
+        <h1>
+          Développeuse<br/>
+          <span class="accent">Web Full Stack</span><br/>
+          basée à Dakar
+        </h1>
+
+        <p class="hero-sub">{{ profile?.bio }}</p>
+
+        <div class="hero-btns">
+          <a routerLink="/projects" class="btn btn-primary">Voir mes projets →</a>
+          <a routerLink="/contact"  class="btn btn-outline">Me contacter</a>
+        </div>
+
+        <div class="hero-stack">
+          @for (group of profile?.skills ?? []; track group.category) {
+            @for (item of group.items.slice(0,2); track item) {
+              <span class="stag">{{ item }}</span>
+            }
+          }
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="num">{{ totalProjects }}</span>
+            <span class="lbl">Projets réalisés</span>
+          </div>
+          <div class="stat">
+            <span class="num">5+</span>
+            <span class="lbl">Technologies</span>
+          </div>
+          <div class="stat">
+            <span class="num">M1</span>
+            <span class="lbl">Génie Logiciel</span>
+          </div>
+        </div>
+      </div>
+
+      
+      @if (profile?.photo_url) {
+        <div class="hero-avatar has-photo">
+          <img [src]="profile!.photo_url" [alt]="profile!.name"/>
+        </div>
+      } @else {
+        <div class="hero-avatar">👩🏾‍💻</div>
+      }
+      }
+  </div>
+</section>
