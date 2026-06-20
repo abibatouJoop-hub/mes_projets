@@ -1,0 +1,29 @@
+<?php
+
+return [
+
+    /*
+     * Routes sur lesquelles CORS s'applique
+     */
+    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+
+    'allowed_methods' => ['*'],
+
+    'allowed_origins' => [
+        env('FRONTEND_URL', 'http://localhost:4200'),
+    ],
+
+    'allowed_origins_patterns' => [],
+
+    'allowed_headers' => ['*'],
+
+    'exposed_headers' => [],
+
+    'max_age' => 0,
+
+    /*
+     * Important pour Sanctum avec token Bearer
+     */
+    'supports_credentials' => true,
+
+];
