@@ -2,8 +2,11 @@ FROM richarvey/nginx-php-fpm:3.1.6
 
 COPY . .
 
+# ── Installer les dépendances PHP PENDANT le build de l'image ──
+RUN composer install --no-dev --optimize-autoloader --no-interaction
+
 # ── Config de l'image ──
-ENV SKIP_COMPOSER 0
+ENV SKIP_COMPOSER 1
 ENV WEBROOT /var/www/html/public
 ENV PHP_ERRORS_STDERR 1
 ENV RUN_SCRIPTS 1
