@@ -4,6 +4,9 @@ COPY . .
 
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
+# ── Remplace la config Nginx par défaut par la nôtre ──
+COPY conf/nginx/nginx-site.conf /etc/nginx/sites-available/default.conf
+
 ENV SKIP_COMPOSER 1
 ENV WEBROOT /var/www/html/public
 ENV PHP_ERRORS_STDERR 1
